@@ -10,25 +10,25 @@ program
  .description('A tool for converting Markdown files to PDF.')
  .version('0.0.1')
  .argument('<file>','input Markdown file')
- .action((mdFile: string)=>{
-  const mdNotation: string = fs.readFileSync(mdFile, 'utf-8');
-  const htmlNotation: string | Promise<string> = MdtoHtml(mdNotation);
-  htmlToPdf(htmlNotation);
+ .action(async (mdFile:string)=>{
+  const mdNotation:string = fs.readFileSync(mdFile, 'utf-8');
+  const htmlNotation:string = MdtoHtml(mdNotation);
+  await htmlToPdf(htmlNotation);
   console.log()
  });
 
  program.parse();
 
-function MdtoHtml(mdText: string){
-  const html = marked.parse(mdText);
-  return(html);
+function MdtoHtml(mdText:string){
+  return marked.parse(mdText) as string;
 }
 
-function htmlToPdf(htmlText: string){
+async function htmlToPdf(htmlText:string){
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-
+  await page.setContent(htmlText);
   await page.pdf({
-    path: 'google_top.pdf',
+    path: 'output.pdf',
+    format: 'A4',
   });
 }
