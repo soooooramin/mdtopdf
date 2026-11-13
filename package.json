@@ -1,0 +1,16 @@
+{
+  "name": "mdtopdf",
+  "version": "0.0.1",
+  "description": "A tool for converting Markdown files to PDF.",
+  "author": "sora",
+  "type": "module",
+  "main": "main.ts",
+  "dependencies": {
+    "commander": "^15.0.0",
+    "marked": "^18.1.1",
+    "puppeteer": "^25.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5"
+  }
+}
